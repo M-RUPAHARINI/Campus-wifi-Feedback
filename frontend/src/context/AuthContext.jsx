@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
             setUser(data);
             localStorage.setItem('userInfo', JSON.stringify(data));
             localStorage.setItem('token', data.token); // Store token separately for easier access
+            localStorage.setItem('userName', data.name || data.user?.name);
             return data;
         } catch (error) {
             throw error;
@@ -35,6 +36,7 @@ export const AuthProvider = ({ children }) => {
             setUser(data);
             localStorage.setItem('userInfo', JSON.stringify(data));
             localStorage.setItem('token', data.token);
+            localStorage.setItem('userName', data.name || data.user?.name);
             return data;
         } catch (error) {
             throw error;
