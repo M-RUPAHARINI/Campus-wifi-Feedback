@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config';
 import {
     FaSearch, FaFilter, FaUserPlus, FaReply,
     FaCheckCircle, FaExclamationCircle, FaSignal,
@@ -21,7 +22,7 @@ const FeedbackTable = ({ feedbacks, onUpdate }) => {
     const handleUpdateField = async (id, field, value) => {
         try {
             const token = localStorage.getItem('token');
-            const { data } = await axios.put(`http://localhost:5000/api/feedback/${id}`, { [field]: value }, {
+            const { data } = await axios.put(`${API_URL}/api/feedback/${id}`, { [field]: value }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             onUpdate(data);

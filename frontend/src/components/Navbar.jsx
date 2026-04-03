@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { FaWifi, FaSignOutAlt, FaUserCircle, FaBell, FaChevronDown, FaSun, FaMoon } from 'react-icons/fa';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
@@ -20,7 +21,7 @@ const Navbar = () => {
             setNotifError(null);
             setIsNotifLoading(true);
             const token = localStorage.getItem('token');
-            const { data } = await axios.get('http://localhost:5000/api/notifications', {
+            const { data } = await axios.get(`${API_URL}/api/notifications`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setNotifications(data);
@@ -52,7 +53,7 @@ const Navbar = () => {
         if (!notif.isRead) {
             setNotifications(notifications.map(n => n._id === notif._id ? { ...n, isRead: true } : n));
             const token = localStorage.getItem('token');
-            axios.put(`http://localhost:5000/api/notifications/${notif._id}/read`, {}, {
+            axios.put(`${API_URL}/api/notifications/${notif._id}/read`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             }).catch(error => console.error('Error marking notification as read:', error));
         }

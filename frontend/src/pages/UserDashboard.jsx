@@ -5,6 +5,7 @@ import FeedbackForm from '../components/FeedbackForm';
 import FeedbackHistory from './FeedbackHistory'; // I will create this next
 import CampusMap from '../components/CampusMap'; // I will create this later
 import axios from 'axios';
+import { API_URL } from '../config';
 import {
     FaEdit, FaHistory, FaSignal, FaMapMarkerAlt,
     FaCalendarAlt, FaTrash, FaThLarge, FaChartBar,
@@ -35,7 +36,7 @@ const UserDashboard = () => {
         try {
             setDataLoading(true);
             const token = localStorage.getItem('token');
-            const { data } = await axios.get('http://localhost:5000/api/feedback/my', {
+            const { data } = await axios.get(`${API_URL}/api/feedback/my`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFeedbacks(data);
@@ -65,7 +66,7 @@ const UserDashboard = () => {
         setIsClearing(true);
         try {
             const token = localStorage.getItem('token');
-            await axios.delete('http://localhost:5000/api/feedback/clear-resolved', {
+            await axios.delete(`${API_URL}/api/feedback/clear-resolved`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFeedbacks(feedbacks.filter(f => f.status !== 'Resolved'));

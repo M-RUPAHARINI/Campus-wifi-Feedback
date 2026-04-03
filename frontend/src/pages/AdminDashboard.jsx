@@ -4,6 +4,7 @@ import FeedbackTable from '../components/FeedbackTable';
 import AdvancedAnalytics from '../components/AdvancedAnalytics';
 import { StatusPieChart, LocationBarChart } from '../components/AnalyticsCharts';
 import axios from 'axios';
+import { API_URL } from '../config';
 import {
     FaChartPie, FaChartBar, FaTable, FaClipboardList,
     FaUsers, FaCheckCircle, FaExclamationTriangle, FaClock,
@@ -24,7 +25,7 @@ const AdminDashboard = () => {
         try {
             setDataLoading(true);
             const token = localStorage.getItem('token');
-            const { data } = await axios.get('http://localhost:5000/api/feedback', {
+            const { data } = await axios.get(`${API_URL}/api/feedback`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFeedbacks(data);
@@ -51,7 +52,7 @@ const AdminDashboard = () => {
         setIsClearing(true);
         try {
             const token = localStorage.getItem('token');
-            await axios.delete('http://localhost:5000/api/feedback/clear-resolved', {
+            await axios.delete(`${API_URL}/api/feedback/clear-resolved`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFeedbacks(feedbacks.filter(f => f.status !== 'Resolved'));

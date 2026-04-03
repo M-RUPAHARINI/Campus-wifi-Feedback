@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../config';
 import { FaPaperPlane, FaMapMarkerAlt, FaExclamationTriangle, FaSignal, FaCheckCircle, FaSpinner, FaClock } from 'react-icons/fa';
 import CustomSelect from './CustomSelect';
 import { FormSkeleton } from '../components/SkeletonLoaders';
@@ -81,7 +82,7 @@ const FeedbackForm = ({ onFeedbackSubmit }) => {
                 issueDate: new Date().toISOString().split('T')[0]
             };
 
-            const response = await axios.post('http://localhost:5000/api/feedback', payload, config);
+            const response = await axios.post(`${API_URL}/api/feedback`, payload, config);
             
             if (onFeedbackSubmit) {
                 onFeedbackSubmit(response.data);
